@@ -21,6 +21,10 @@ export default function UsersPage() {
     loadUsers()
   }, [])
 
+
+  
+
+
   const handleVerify = async (userId: string) => {
     try {
       await adminAPI.verifyUser(userId)
@@ -42,6 +46,7 @@ export default function UsersPage() {
       alert('Could not update wallet status')
     }
   }
+  
 
   const filtered = users.filter(u =>
     u.fullName.toLowerCase().includes(search.toLowerCase()) ||
@@ -128,7 +133,9 @@ export default function UsersPage() {
             ))}
           </tbody>
         </table>
+
       </div>
+      
     </div>
   )
 }

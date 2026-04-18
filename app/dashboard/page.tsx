@@ -28,13 +28,16 @@ export default function DashboardPage() {
   )
 
   const statCards = [
-    { label: 'Total Users', value: stats?.totalUsers || 0, icon: '👥', color: 'bg-blue-50 border-blue-200', textColor: 'text-blue-800' },
-    { label: 'Total Agents', value: stats?.totalAgents || 0, icon: '🧑‍💼', color: 'bg-amber-50 border-amber-200', textColor: 'text-amber-800' },
-    { label: 'Ajo Groups', value: stats?.totalGroups || 0, icon: '🤝', color: 'bg-green-50 border-green-200', textColor: 'text-green-800' },
-    { label: 'Transactions', value: stats?.totalTransactions || 0, icon: '💳', color: 'bg-purple-50 border-purple-200', textColor: 'text-purple-800' },
-    { label: 'Verified Users', value: stats?.verifiedUsers || 0, icon: '✅', color: 'bg-emerald-50 border-emerald-200', textColor: 'text-emerald-800' },
-    { label: 'Platform Balance', value: `₦${(stats?.totalBalance || 0).toLocaleString()}`, icon: '💰', color: 'bg-rose-50 border-rose-200', textColor: 'text-rose-800' },
-  ]
+  { label: 'Total Users', value: stats?.totalUsers || 0, icon: '👥', color: 'bg-blue-50 border-blue-200', textColor: 'text-blue-800' },
+  { label: 'Total Agents', value: stats?.totalAgents || 0, icon: '🧑‍💼', color: 'bg-amber-50 border-amber-200', textColor: 'text-amber-800' },
+  { label: 'Standard Ajo Groups', value: (stats?.totalGroups || 0) - (stats?.guaranteedGroups || 0), icon: '🤝', color: 'bg-green-50 border-green-200', textColor: 'text-green-800' },
+  { label: 'Guaranteed Ajo Groups', value: stats?.guaranteedGroups || 0, icon: '🛡️', color: 'bg-purple-50 border-purple-200', textColor: 'text-purple-800' },
+  { label: 'Active Defaults', value: stats?.activeDefaults || 0, icon: '⚠️', color: 'bg-red-50 border-red-200', textColor: 'text-red-800' },
+  { label: 'Platform Balance', value: `₦${(stats?.totalBalance || 0).toLocaleString()}`, icon: '💰', color: 'bg-rose-50 border-rose-200', textColor: 'text-rose-800' },
+  { label: 'Verified Users', value: stats?.verifiedUsers || 0, icon: '✅', color: 'bg-emerald-50 border-emerald-200', textColor: 'text-emerald-800' },
+  { label: 'Total Transactions', value: stats?.totalTransactions || 0, icon: '💳', color: 'bg-indigo-50 border-indigo-200', textColor: 'text-indigo-800' },
+  { label: 'Total Saved', value: `₦${(stats?.totalSaved || 0).toLocaleString()}`, icon: '🏦', color: 'bg-teal-50 border-teal-200', textColor: 'text-teal-800' },
+]
 
   return (
     <div>
@@ -44,7 +47,17 @@ export default function DashboardPage() {
       </div>
 
       {/* Stat Cards */}
-      <div className="grid grid-cols-3 gap-6 mb-8">
+ const statCards = [
+  { label: 'Total Users', value: stats?.totalUsers || 0, icon: '👥', color: 'bg-blue-50 border-blue-200', textColor: 'text-blue-800' },
+  { label: 'Total Agents', value: stats?.totalAgents || 0, icon: '🧑‍💼', color: 'bg-amber-50 border-amber-200', textColor: 'text-amber-800' },
+  { label: 'Standard Ajo Groups', value: (stats?.totalGroups || 0) - (stats?.guaranteedGroups || 0), icon: '🤝', color: 'bg-green-50 border-green-200', textColor: 'text-green-800' },
+  { label: 'Guaranteed Ajo Groups', value: stats?.guaranteedGroups || 0, icon: '🛡️', color: 'bg-purple-50 border-purple-200', textColor: 'text-purple-800' },
+  { label: 'Active Defaults', value: stats?.activeDefaults || 0, icon: '⚠️', color: 'bg-red-50 border-red-200', textColor: 'text-red-800' },
+  { label: 'Platform Balance', value: `₦${(stats?.totalBalance || 0).toLocaleString()}`, icon: '💰', color: 'bg-rose-50 border-rose-200', textColor: 'text-rose-800' },
+  { label: 'Verified Users', value: stats?.verifiedUsers || 0, icon: '✅', color: 'bg-emerald-50 border-emerald-200', textColor: 'text-emerald-800' },
+  { label: 'Total Transactions', value: stats?.totalTransactions || 0, icon: '💳', color: 'bg-indigo-50 border-indigo-200', textColor: 'text-indigo-800' },
+  { label: 'Total Saved', value: `₦${(stats?.totalSaved || 0).toLocaleString()}`, icon: '🏦', color: 'bg-teal-50 border-teal-200', textColor: 'text-teal-800' },
+]
         {statCards.map(card => (
           <div key={card.label} className={`${card.color} border rounded-2xl p-6`}>
             <div className="flex items-center justify-between mb-3">
