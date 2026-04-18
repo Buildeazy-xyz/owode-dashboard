@@ -33,7 +33,8 @@ writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`),
   getGuaranteedGroup: (id: string) => api.get(`/guaranteed-ajo/groups/${id}`),
   checkDefaults: (groupId: string) => api.post(`/guaranteed-ajo/check-defaults/${groupId}`),
   getGuaranteePool: () => api.get('/trust/guarantee-pool'),
-  getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`)
+  getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`),
+  getGroupRisk: (groupId: string) => api.get(`/guaranteed-ajo/risk/${groupId}`)
 }
 
 

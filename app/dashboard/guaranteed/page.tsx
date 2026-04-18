@@ -25,6 +25,7 @@ export default function GuaranteedAjoPage() {
     }
     load()
   }, [])
+  
 
   const handleCheckDefaults = async (groupId: string) => {
     try {
@@ -152,4 +153,28 @@ export default function GuaranteedAjoPage() {
       </div>
     </div>
   )
+  // Add state for risk data
+const [riskData, setRiskData] = useState<Record<string, any>>({})
+
+// Load risk for each group
+useEffect(() => {
+  groups.forEach(async (group) => {
+    try {
+      const response = await adminAPI.getGroupRisk(group.id)
+      setRiskData(prev => ({ ...prev, [group.id]: response.data.data }))
+    } catch (e) {}
+  })
+}, [groups])
+
+// Add this inside each group card:
+{riskData[group.id] && (
+  <div className={`mt-3 px-3 py-2 rounded-xl text-xs font-semibold ${
+    riskData[group.id].riskLevel === 'LOW' ? 'bg-green-100 text-green-700' :
+    riskData[group.id].riskLevel === 'MEDIUM' ? 'bg-amber-100 text-amber-700' :
+    'bg-red-100 text-red-700'
+  }`}>
+    {riskData[group.id].riskLevel === 'LOW' ? '🟢' : riskData[group.id].riskLevel === 'MEDIUM' ? '🟡' : '🔴'} Risk: {riskData[group.id].riskLevel} • Avg Score: {Math.round(riskData[group.id].averageTrustScore)}
+  </div>
+)}
+  
 }
