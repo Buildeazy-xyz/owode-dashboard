@@ -7,7 +7,6 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 })
 
-// Add token to every request
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('owode_admin_token')
@@ -19,7 +18,6 @@ api.interceptors.request.use((config) => {
 export const adminAPI = {
   login: (phone: string, password: string) =>
     api.post('/users/login', { phone, password }),
-
   getStats: () => api.get('/admin/stats'),
   getUsers: () => api.get('/admin/users'),
   getTransactions: () => api.get('/admin/transactions'),
@@ -27,7 +25,12 @@ export const adminAPI = {
   getAgents: () => api.get('/admin/agents'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
   lockWallet: (userId: string) => api.post(`/admin/wallet/lock/${userId}`),
-  unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`)
+  unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
+  getGuaranteedGroups: () => api.get('/guaranteed-ajo/groups'),
+  getGuaranteedGroup: (id: string) => api.get(`/guaranteed-ajo/groups/${id}`),
+  checkDefaults: (groupId: string) => api.post(`/guaranteed-ajo/check-defaults/${groupId}`),
+  getGuaranteePool: () => api.get('/trust/guarantee-pool'),
+  getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`)
 }
 
 export default api
