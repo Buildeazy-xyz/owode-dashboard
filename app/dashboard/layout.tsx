@@ -29,6 +29,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   { href: '/dashboard/guaranteed', label: 'Guaranteed Ajo', icon: '🛡️' },
   { href: '/dashboard/agents', label: 'Agents', icon: '🧑‍💼' },
   { href: '/dashboard/kyc', label: 'KYC', icon: '📋' },
+  { href: '/dashboard/recovery', label: 'Recovery', icon: '⚠️' },
 ]
 
   return (

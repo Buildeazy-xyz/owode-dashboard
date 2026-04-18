@@ -23,6 +23,9 @@ export const adminAPI = {
   getTransactions: () => api.get('/admin/transactions'),
   getAjoGroups: () => api.get('/admin/ajo-groups'),
   getAgents: () => api.get('/admin/agents'),
+  getDefaults: () => api.get('/recovery/defaults'),
+runRecovery: () => api.post('/recovery/run'),
+writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
   lockWallet: (userId: string) => api.post(`/admin/wallet/lock/${userId}`),
   unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
@@ -32,5 +35,6 @@ export const adminAPI = {
   getGuaranteePool: () => api.get('/trust/guarantee-pool'),
   getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`)
 }
+
 
 export default api
