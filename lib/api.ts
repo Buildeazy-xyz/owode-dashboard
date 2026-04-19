@@ -21,8 +21,9 @@ export const adminAPI = {
   getStats: () => api.get('/admin/stats'),
   getUsers: () => api.get('/admin/users'),
   getTransactions: () => api.get('/admin/transactions'),
-  getAjoGroups: () => api.get('/admin/ajo-groups'),
-  getAgents: () => api.get('/admin/agents'),
+createAjoGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
+  api.post('/admin/ajo/create', data),
+deleteAjoGroup: (id: string) => api.delete(`/admin/ajo/${id}`),  getAgents: () => api.get('/admin/agents'),
   getDefaults: () => api.get('/recovery/defaults'),
 runRecovery: () => api.post('/recovery/run'),
 writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`),
