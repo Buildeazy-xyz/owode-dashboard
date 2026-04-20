@@ -64,6 +64,7 @@ export default function LoginPage() {
               />
             </div>
             <div>
+              
               <label className="text-sm font-semibold text-blue-900 block mb-2">Password</label>
               <input
                 type="password"

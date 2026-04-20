@@ -1,9 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { adminAPI } from '../../lib/api'
+import { Stats, Transaction } from '../../types'
 
 export default function DashboardPage() {
-  const [stats, setStats] = useState<any>(null)
+  const [stats, setStats] = useState<Stats | null>(null)
   const [loading, setLoading] = useState(true)
 
   const loadStats = async () => {
@@ -11,14 +12,17 @@ export default function DashboardPage() {
       const response = await adminAPI.getStats()
       setStats(response.data.data)
     } catch (error) {
-      console.error('Could not load stats')
+      console.error('Could not load stats', error)
     } finally {
       setLoading(false)
     }
   }
 
   useEffect(() => {
-    loadStats()
+    const loadInitialStats = async () => {
+      await loadStats()
+    }
+    loadInitialStats()
     const interval = setInterval(loadStats, 30000)
     return () => clearInterval(interval)
   }, [])
@@ -30,6 +34,8 @@ export default function DashboardPage() {
   )
 
   const statCards = [
+    // Add to statCards:
+    { label: 'Security Features', value: '3-Layer Auth', icon: '🔐', color: 'bg-slate-50 border-slate-200', textColor: 'text-slate-800' },
     { label: 'Total Users', value: stats?.totalUsers || 0, icon: '👥', color: 'bg-blue-50 border-blue-200', textColor: 'text-blue-800' },
     { label: 'Total Agents', value: stats?.totalAgents || 0, icon: '🧑‍💼', color: 'bg-amber-50 border-amber-200', textColor: 'text-amber-800' },
     { label: 'Standard Ajo Groups', value: (stats?.totalGroups || 0) - (stats?.guaranteedGroups || 0), icon: '🤝', color: 'bg-green-50 border-green-200', textColor: 'text-green-800' },
@@ -46,7 +52,7 @@ export default function DashboardPage() {
       <div className="mb-8 flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-blue-900">Platform Overview</h1>
-          <p className="text-gray-500 mt-1">Welcome back! Here's what's happening on OWODE.</p>
+          <p className="text-gray-500 mt-1">Welcome back! Here&apos;s what&apos;s happening on OWODE.</p>
         </div>
         <button
           onClick={loadStats}
@@ -83,7 +89,7 @@ export default function DashboardPage() {
           </div>
         ) : (
           <div className="space-y-3">
-            {stats?.recentTransactions?.map((tx: any) => (
+            {stats?.recentTransactions?.map((tx: Transaction) => (
               <div key={tx.id} className="flex items-center justify-between py-3 border-b border-gray-50 last:border-0">
                 <div className="flex items-center gap-3">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${tx.type === 'CREDIT' ? 'bg-green-50' : 'bg-red-50'}`}>
