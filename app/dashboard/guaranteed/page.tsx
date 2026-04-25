@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { adminAPI } from '../../../lib/api'
+import { adminAPI } from '@/lib/api'
 
 export default function GuaranteedAjoPage() {
   const [groups, setGroups] = useState<any[]>([])
