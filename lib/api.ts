@@ -37,6 +37,8 @@ export const adminAPI = {
   unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
   createAjoGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
     api.post('/admin/ajo/create', data),
+  getGroupRisk: (id: string) =>
+  api.get(`/guaranteed-ajo/groups/${id}/risk`),
   deleteAjoGroup: (id: string) => api.delete(`/admin/ajo/${id}`),
   getGuaranteedGroups: () => api.get('/guaranteed-ajo/groups'),
   getGuaranteedGroup: (id: string) => api.get(`/guaranteed-ajo/groups/${id}`),
