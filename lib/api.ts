@@ -1,13 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
-
-
-const BASE_URL = process.env.NODE_ENV === 'production'
-
-  ? 'https://owode-platform.railway.internal/api'
-
-  : 'http://localhost:3000/api'
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api'
 
 const api = axios.create({
   baseURL: BASE_URL,
@@ -17,14 +11,11 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
     const token = localStorage.getItem('owode_admin_token')
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`
-    }
+    if (token) config.headers.Authorization = `Bearer ${token}`
   }
   return config
 })
 
-// Log all responses for debugging
 api.interceptors.response.use(
   (response) => response,
   (error) => {
