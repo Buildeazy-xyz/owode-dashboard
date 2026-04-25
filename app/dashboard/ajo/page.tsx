@@ -2,25 +2,55 @@
 import { useEffect, useState } from 'react'
 import { adminAPI } from '../../../lib/api'
 
+type AjoFrequency = 'DAILY' | 'WEEKLY' | 'MONTHLY'
+
+type AjoMember = {
+  id: string
+}
+
+type AjoGroup = {
+  id: string
+  name: string
+  amount: number
+  frequency: AjoFrequency
+  totalMembers: number
+  members: AjoMember[]
+  currentCycle: string | number
+  isGuaranteed?: boolean
+}
+
+type AjoFormState = {
+  name: string
+  amount: string
+  frequency: AjoFrequency
+  totalMembers: string
+}
+
 export default function AjoPage() {
-  const [groups, setGroups] = useState<any[]>([])
+  const [groups, setGroups] = useState<AjoGroup[]>([])
   const [loading, setLoading] = useState(true)
   const [showCreate, setShowCreate] = useState(false)
-  const [form, setForm] = useState({ name: '', amount: '', frequency: 'WEEKLY', totalMembers: '' })
+  const [form, setForm] = useState<AjoFormState>({ name: '', amount: '', frequency: 'WEEKLY', totalMembers: '' })
   const [creating, setCreating] = useState(false)
 
   const loadGroups = async () => {
     try {
       const response = await adminAPI.getAjoGroups()
-      setGroups(response.data.data)
+      setGroups(response.data.data as AjoGroup[])
     } catch (error) {
-      console.error('Could not load groups')
+      console.error('Could not load groups', error)
     } finally {
       setLoading(false)
     }
   }
 
-  useEffect(() => { loadGroups() }, [])
+  useEffect(() => {
+    const fetchGroups = async () => {
+      await loadGroups()
+    }
+
+    void fetchGroups()
+  }, [])
 
   const handleCreate = async () => {
     if (!form.name || !form.amount || !form.totalMembers) {
@@ -43,20 +73,24 @@ export default function AjoPage() {
       setShowCreate(false)
       setForm({ name: '', amount: '', frequency: 'WEEKLY', totalMembers: '' })
       await loadGroups()
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Could not create group')
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string } } }
+      const message = axiosError.response?.data?.message
+      alert(message || 'Could not create group')
     } finally {
       setCreating(false)
     }
   }
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Delete "${name}"? This cannot be undone.`)) return
+    if (!confirm(`Delete ${name}? This cannot be undone.`)) return
     try {
       await adminAPI.deleteAjoGroup(id)
-      setGroups(prev => prev.filter(g => g.id !== id))
-    } catch (error: any) {
-      alert(error.response?.data?.message || 'Could not delete group')
+      setGroups(prev => prev.filter(group => group.id !== id))
+    } catch (error: unknown) {
+      const axiosError = error as { response?: { data?: { message?: string } } }
+      const message = axiosError.response?.data?.message
+      alert(message || 'Could not delete group')
     }
   }
 
@@ -121,7 +155,7 @@ export default function AjoPage() {
                   {['DAILY', 'WEEKLY', 'MONTHLY'].map(f => (
                     <button
                       key={f}
-                      onClick={() => setForm(p => ({ ...p, frequency: f }))}
+                      onClick={() => setForm(p => ({ ...p, frequency: f as AjoFrequency }))}
                       className={`flex-1 py-3 rounded-xl text-sm font-semibold transition ${form.frequency === f ? 'bg-blue-800 text-white' : 'bg-gray-100 text-gray-600'}`}
                     >
                       {f}
@@ -152,7 +186,7 @@ export default function AjoPage() {
 
       {/* Groups Grid */}
       <div className="grid grid-cols-2 gap-6">
-        {groups.filter((g: any) => !g.isGuaranteed).map(group => {
+        {groups.filter(group => !group.isGuaranteed).map(group => {
           const spotsLeft = group.totalMembers - group.members.length
           const isFull = spotsLeft === 0
           return (
@@ -216,11 +250,11 @@ export default function AjoPage() {
           )
         })}
 
-        {groups.filter((g: any) => !g.isGuaranteed).length === 0 && (
+        {groups.filter(group => !group.isGuaranteed).length === 0 && (
           <div className="col-span-2 text-center py-20 text-gray-400">
             <p className="text-4xl mb-4">🤝</p>
             <p className="text-lg font-semibold">No Standard Ajo groups yet</p>
-            <p className="text-sm">Click "Create Group" to get started</p>
+            <p className="text-sm">Click &quot;Create Group&quot; to get started</p>
           </div>
         )}
       </div>
