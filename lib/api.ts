@@ -2,6 +2,7 @@
 import axios from 'axios'
 
 const BASE_URL = 'https://owode-platform.onrender.com/api'
+
 const api = axios.create({
   baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' }
@@ -27,28 +28,55 @@ api.interceptors.response.use(
 )
 
 export const adminAPI = {
+  // Auth
   login: (phone: string, password: string) =>
     api.post('/users/login', { phone, password }),
+
+  // Stats
   getStats: () => api.get('/admin/stats'),
+
+  // Users
   getUsers: () => api.get('/admin/users'),
-  getTransactions: () => api.get('/admin/transactions'),
-  getAjoGroups: () => api.get('/admin/ajo-groups'),
-  getAgents: () => api.get('/admin/agents'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
   lockWallet: (userId: string) => api.post(`/admin/wallet/lock/${userId}`),
   unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
+
+  // Transactions
+  getTransactions: () => api.get('/admin/transactions'),
+
+  // Standard Ajo
+  getAjoGroups: () => api.get('/admin/ajo-groups'),
   createAjoGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
     api.post('/admin/ajo/create', data),
   deleteAjoGroup: (id: string) => api.delete(`/admin/ajo/${id}`),
-  getGroupRisk: (id: string) => api.get(`/guaranteed-ajo/risk/${id}`),
+
+  // Guaranteed Ajo
   getGuaranteedGroups: () => api.get('/guaranteed-ajo/groups'),
   getGuaranteedGroup: (id: string) => api.get(`/guaranteed-ajo/groups/${id}`),
+  createGuaranteedGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
+    api.post('/guaranteed-ajo/create', data),
+  deleteGuaranteedGroup: (id: string) => api.delete(`/admin/ajo/${id}`),
   checkDefaults: (groupId: string) => api.post(`/guaranteed-ajo/check-defaults/${groupId}`),
+  getGroupRisk: (id: string) => api.get(`/guaranteed-ajo/risk/${id}`),
   getGuaranteePool: () => api.get('/trust/guarantee-pool'),
+
+  // Agents
+  getAgents: () => api.get('/admin/agents'),
+
+  // KYC
+  getKYCPending: () => api.get('/admin/kyc/pending'),
+
+  // Trust
   getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`),
+
+  // Recovery
   getDefaults: () => api.get('/recovery/defaults'),
   runRecovery: () => api.post('/recovery/run'),
-  writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`)
+  writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`),
+
+  // Savings
+  getSavingsGoals: () => api.get('/admin/savings/goals'),
+  getSavingsStats: () => api.get('/admin/savings/stats'),
 }
 
 export default api

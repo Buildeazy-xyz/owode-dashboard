@@ -21,12 +21,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     router.push('/')
   }
 
- const navItems = [
+const navItems = [
   { href: '/dashboard', label: 'Overview', icon: '📊' },
   { href: '/dashboard/users', label: 'Users', icon: '👥' },
   { href: '/dashboard/transactions', label: 'Transactions', icon: '💳' },
   { href: '/dashboard/ajo', label: 'Standard Ajo', icon: '🤝' },
   { href: '/dashboard/guaranteed', label: 'Guaranteed Ajo', icon: '🛡️' },
+  { href: '/dashboard/savings', label: 'Savings Goals', icon: '🐷' },
   { href: '/dashboard/agents', label: 'Agents', icon: '🧑‍💼' },
   { href: '/dashboard/kyc', label: 'KYC', icon: '📋' },
   { href: '/dashboard/recovery', label: 'Recovery', icon: '⚠️' },
