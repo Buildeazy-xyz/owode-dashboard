@@ -67,7 +67,6 @@ export default function SavingsPage() {
         />
       </div>
 
-      {/* Stats */}
       <div className="grid grid-cols-4 gap-4 mb-8">
         {[
           { label: 'Total Goals', value: stats.totalGoals, icon: '🎯', color: 'bg-blue-50 border-blue-200 text-blue-800' },
@@ -83,7 +82,6 @@ export default function SavingsPage() {
         ))}
       </div>
 
-      {/* Goals Table */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-100">

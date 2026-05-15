@@ -29,6 +29,7 @@ const navItems = [
   { href: '/dashboard/guaranteed', label: 'Guaranteed Ajo', icon: '🛡️' },
   { href: '/dashboard/savings', label: 'Savings Goals', icon: '🐷' },
   { href: '/dashboard/agents', label: 'Agents', icon: '🧑‍💼' },
+  { href: '/dashboard/savings', label: 'Savings Goals', icon: '🐷' },
   { href: '/dashboard/kyc', label: 'KYC', icon: '📋' },
   { href: '/dashboard/recovery', label: 'Recovery', icon: '⚠️' },
 ]
