@@ -28,31 +28,18 @@ api.interceptors.response.use(
 )
 
 export const adminAPI = {
-  // Auth
   login: (phone: string, password: string) =>
     api.post('/users/login', { phone, password }),
-
-  // Stats
-  getStats: () => api.get('/admin/stats'),\
-  
-sendNotification: (data: { title: string; body: string; type: string }) =>
-  api.post('/admin/notifications/send', data),
-  // Users
+  getStats: () => api.get('/admin/stats'),
   getUsers: () => api.get('/admin/users'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
   lockWallet: (userId: string) => api.post(`/admin/wallet/lock/${userId}`),
   unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
-
-  // Transactions
   getTransactions: () => api.get('/admin/transactions'),
-
-  // Standard Ajo
   getAjoGroups: () => api.get('/admin/ajo-groups'),
   createAjoGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
     api.post('/admin/ajo/create', data),
   deleteAjoGroup: (id: string) => api.delete(`/admin/ajo/${id}`),
-
-  // Guaranteed Ajo
   getGuaranteedGroups: () => api.get('/guaranteed-ajo/groups'),
   getGuaranteedGroup: (id: string) => api.get(`/guaranteed-ajo/groups/${id}`),
   createGuaranteedGroup: (data: { name: string; amount: number; frequency: string; totalMembers: number }) =>
@@ -61,24 +48,16 @@ sendNotification: (data: { title: string; body: string; type: string }) =>
   checkDefaults: (groupId: string) => api.post(`/guaranteed-ajo/check-defaults/${groupId}`),
   getGroupRisk: (id: string) => api.get(`/guaranteed-ajo/risk/${id}`),
   getGuaranteePool: () => api.get('/trust/guarantee-pool'),
-
-  // Agents
   getAgents: () => api.get('/admin/agents'),
-
-  // KYC
   getKYCPending: () => api.get('/admin/kyc/pending'),
-
-  // Trust
   getUserTrustScore: (userId: string) => api.get(`/trust/score/${userId}`),
-
-  // Recovery
   getDefaults: () => api.get('/recovery/defaults'),
   runRecovery: () => api.post('/recovery/run'),
   writeOffDefault: (id: string) => api.post(`/recovery/write-off/${id}`),
-
-  // Savings
   getSavingsGoals: () => api.get('/admin/savings/goals'),
   getSavingsStats: () => api.get('/admin/savings/stats'),
+  sendNotification: (data: { title: string; body: string; type: string }) =>
+    api.post('/admin/notifications/send', data),
 }
 
 export default api
