@@ -33,8 +33,10 @@ export const adminAPI = {
     api.post('/users/login', { phone, password }),
 
   // Stats
-  getStats: () => api.get('/admin/stats'),
-
+  getStats: () => api.get('/admin/stats'),\
+  
+sendNotification: (data: { title: string; body: string; type: string }) =>
+  api.post('/admin/notifications/send', data),
   // Users
   getUsers: () => api.get('/admin/users'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
