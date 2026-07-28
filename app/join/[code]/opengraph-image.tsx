@@ -15,45 +15,45 @@ export default async function Image({ params }: { params: Promise<{ code: string
           width: '100%',
           height: '100%',
           display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: '#ffffff',
-          fontFamily: 'sans-serif'
+          background: '#0d2149',
+          fontFamily: 'sans-serif',
+          position: 'relative'
         }}
       >
-        <img
-          src="https://owodeagent.com/owode-logo.png"
-          width={640}
-          height={180}
-          style={{ objectFit: 'contain', marginBottom: 30 }}
-        />
+        <div style={{ display: 'flex', position: 'absolute', top: 0, left: 0, width: 14, height: '100%', background: '#f5a623' }} />
 
-        <div style={{ display: 'flex', color: '#25427a', fontSize: 26, letterSpacing: 3, marginTop: 6 }}>
-          YOU HAVE BEEN INVITED
+        <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', paddingLeft: 96 }}>
+          <div style={{ display: 'flex', color: '#f5a623', fontSize: 22, letterSpacing: 8, marginBottom: 18 }}>
+            YOU HAVE BEEN INVITED
+          </div>
+
+          <div style={{ display: 'flex', color: '#ffffff', fontSize: 92, fontWeight: 800, letterSpacing: -2, lineHeight: 1 }}>
+            OWODE
+          </div>
+          <div style={{ display: 'flex', color: 'rgba(255,255,255,0.55)', fontSize: 28, letterSpacing: 11, marginTop: 10 }}>
+            ALAJO AGBAYE
+          </div>
+
+          <div style={{ display: 'flex', width: 90, height: 4, background: '#f5a623', marginTop: 34, marginBottom: 34 }} />
+
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{ display: 'flex', color: 'rgba(255,255,255,0.45)', fontSize: 17, letterSpacing: 5, marginBottom: 8 }}>
+                INVITE CODE
+              </div>
+              <div style={{ display: 'flex', color: '#ffffff', fontSize: 76, fontWeight: 700, letterSpacing: 14, lineHeight: 1 }}>
+                {clean}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', color: 'rgba(255,255,255,0.5)', fontSize: 21, marginTop: 34 }}>
+            Tap to join the savings group
+          </div>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            background: '#eaf2ff',
-            borderRadius: 26,
-            padding: '26px 60px',
-            marginTop: 40
-          }}
-        >
-          <div style={{ display: 'flex', color: '#7c8aa5', fontSize: 20, letterSpacing: 4 }}>
-            INVITE CODE
-          </div>
-          <div style={{ display: 'flex', color: '#25427a', fontSize: 82, fontWeight: 700, letterSpacing: 12, marginTop: 8 }}>
-            {clean}
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', color: '#7c8aa5', fontSize: 24, marginTop: 40 }}>
-          Tap to join the savings group
+        <div style={{ display: 'flex', width: 470, alignItems: 'center', justifyContent: 'center' }}>
+          <img src="https://owodeagent.com/owode-shield.png" width={360} height={360} style={{ objectFit: 'contain' }} />
         </div>
       </div>
     ),
