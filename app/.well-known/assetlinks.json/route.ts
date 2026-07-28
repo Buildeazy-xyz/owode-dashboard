@@ -1,0 +1,19 @@
+export const dynamic = 'force-static'
+
+export async function GET() {
+  return new Response(
+    JSON.stringify([
+      {
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: {
+          namespace: 'android_app',
+          package_name: 'com.owode.alajo.app',
+          sha256_cert_fingerprints: [
+            '2D:68:42:E9:91:1C:ED:4B:3F:6A:D5:E1:5F:69:9F:C8:99:1F:86:82:C2:49:2B:16:48:E2:1B:29:3B:B2:F6:C4'
+          ]
+        }
+      }
+    ]),
+    { headers: { 'Content-Type': 'application/json' } }
+  )
+}
