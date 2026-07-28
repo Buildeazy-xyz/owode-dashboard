@@ -28,11 +28,7 @@ export default async function JoinPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-blue-800 flex items-center justify-center p-4">
       <div className="w-full max-w-md text-center">
-        <div className="w-20 h-20 bg-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
-          <span className="text-white text-3xl font-bold">O</span>
-        </div>
-        <h1 className="text-3xl font-bold text-white tracking-widest">OWODE</h1>
-        <p className="text-amber-400 tracking-widest text-sm mt-1 mb-8">ALAJO AGBAYE</p>
+        <img src="/owode-logo.png" alt="OWODE Alajo" className="w-full max-w-sm mx-auto mb-8" />
 
         <div className="bg-white rounded-3xl p-8 shadow-2xl">
           <h2 className="text-xl font-bold text-blue-900 mb-2">You have been invited</h2>

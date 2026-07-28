@@ -52,8 +52,15 @@ export default async function Image({ params }: { params: Promise<{ code: string
           </div>
         </div>
 
-        <div style={{ display: 'flex', width: 470, alignItems: 'center', justifyContent: 'center' }}>
-          <img src="https://owodeagent.com/owode-shield.png" width={360} height={360} style={{ objectFit: 'contain' }} />
+        <div style={{ display: 'flex', width: 470, alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          <div style={{ display: 'flex', width: 300, height: 380, overflow: 'hidden', position: 'relative' }}>
+            <img
+              src="https://owodeagent.com/owode-shield.png"
+              width={1080}
+              height={380}
+              style={{ objectFit: 'cover', objectPosition: 'left center', position: 'absolute', left: 0, top: 0 }}
+            />
+          </div>
         </div>
       </div>
     ),
