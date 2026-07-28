@@ -18,33 +18,18 @@ export default async function Image({ params }: { params: Promise<{ code: string
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #0f2340 0%, #25427a 60%, #385c9e 100%)',
+          background: '#ffffff',
           fontFamily: 'sans-serif'
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 110,
-            height: 110,
-            borderRadius: 999,
-            background: '#f5a623',
-            color: '#ffffff',
-            fontSize: 62,
-            fontWeight: 700,
-            marginBottom: 26
-          }}
-        >
-          O
-        </div>
+        <img
+          src="https://owodeagent.com/owode-logo.png"
+          width={640}
+          height={180}
+          style={{ objectFit: 'contain', marginBottom: 30 }}
+        />
 
-        <div style={{ display: 'flex', color: '#ffffff', fontSize: 54, fontWeight: 700, letterSpacing: 6 }}>
-          OWODE ALAJO
-        </div>
-
-        <div style={{ display: 'flex', color: '#f5a623', fontSize: 26, letterSpacing: 3, marginTop: 6 }}>
+        <div style={{ display: 'flex', color: '#25427a', fontSize: 26, letterSpacing: 3, marginTop: 6 }}>
           YOU HAVE BEEN INVITED
         </div>
 
@@ -53,21 +38,21 @@ export default async function Image({ params }: { params: Promise<{ code: string
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            background: 'rgba(255,255,255,0.10)',
+            background: '#eaf2ff',
             borderRadius: 26,
             padding: '26px 60px',
             marginTop: 40
           }}
         >
-          <div style={{ display: 'flex', color: 'rgba(255,255,255,0.65)', fontSize: 20, letterSpacing: 4 }}>
+          <div style={{ display: 'flex', color: '#7c8aa5', fontSize: 20, letterSpacing: 4 }}>
             INVITE CODE
           </div>
-          <div style={{ display: 'flex', color: '#ffffff', fontSize: 82, fontWeight: 700, letterSpacing: 12, marginTop: 8 }}>
+          <div style={{ display: 'flex', color: '#25427a', fontSize: 82, fontWeight: 700, letterSpacing: 12, marginTop: 8 }}>
             {clean}
           </div>
         </div>
 
-        <div style={{ display: 'flex', color: 'rgba(255,255,255,0.7)', fontSize: 24, marginTop: 40 }}>
+        <div style={{ display: 'flex', color: '#7c8aa5', fontSize: 24, marginTop: 40 }}>
           Tap to join the savings group
         </div>
       </div>
