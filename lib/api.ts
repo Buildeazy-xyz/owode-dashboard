@@ -33,6 +33,7 @@ export const adminAPI = {
   getStats: () => api.get('/admin/stats'),
   getUsers: () => api.get('/admin/users'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),
+  rejectKYC: (userId: string, reason: string) => api.post(`/admin/kyc/reject/${userId}`, { reason }),
   lockWallet: (userId: string) => api.post(`/admin/wallet/lock/${userId}`),
   unlockWallet: (userId: string) => api.post(`/admin/wallet/unlock/${userId}`),
   getTransactions: () => api.get('/admin/transactions'),

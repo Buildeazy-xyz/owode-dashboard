@@ -263,9 +263,9 @@ export default function TransactionsPage() {
             </div>
 
             <div className={`rounded-2xl p-6 mb-6 text-center ${selectedTx.type === 'CREDIT' ? 'bg-green-50' : 'bg-red-50'}`}>
-              <Text className={`text-4xl font-bold ${selectedTx.type === 'CREDIT' ? 'text-green-600' : 'text-red-500'}`}>
+              <p className={`text-4xl font-bold ${selectedTx.type === 'CREDIT' ? 'text-green-600' : 'text-red-500'}`}>
                 {selectedTx.type === 'CREDIT' ? '+' : '-'}₦{selectedTx.amount.toLocaleString()}
-              </Text>
+              </p>
               <p className={`text-sm mt-2 font-semibold ${selectedTx.type === 'CREDIT' ? 'text-green-600' : 'text-red-500'}`}>
                 {selectedTx.type === 'CREDIT' ? '⬆️ CREDIT' : '⬇️ DEBIT'}
               </p>
