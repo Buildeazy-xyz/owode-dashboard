@@ -16,9 +16,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: 'https://owodeagent.com/join/' + clean,
       siteName: 'OWODE Alajo',
       type: 'website',
-      images: [{ url: 'https://owodeagent.com/og-invite.png', width: 1200, height: 630, alt: title }]
+      images: [{ url: 'https://owodeagent.com/join/' + clean + '/opengraph-image', width: 1200, height: 630, alt: title }]
     },
-    twitter: { card: 'summary_large_image', title, description, images: ['https://owodeagent.com/og-invite.png'] }
+    twitter: { card: 'summary_large_image', title, description, images: ['https://owodeagent.com/join/' + clean + '/opengraph-image'] }
   }
 }
 
