@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://owodeagent.com'),
   title: "OWODE Alajo - Admin Dashboard",
   description: "OWODE Digital Services Limited - Alajo Platform Admin Dashboard",
   verification: {
