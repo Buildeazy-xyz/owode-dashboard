@@ -5,14 +5,15 @@ import { adminAPI } from '../../../lib/api'
 export default function AgentsPage() {
   const [agents, setAgents] = useState<any[]>([])
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const load = async () => {
       try {
         const response = await adminAPI.getAgents()
         setAgents(response.data.data)
-      } catch (error) {
-        console.error('Could not load agents')
+      } catch (error: any) {
+        setError(error?.response?.data?.message || 'Could not load agents')
       } finally {
         setLoading(false)
       }
@@ -21,6 +22,7 @@ export default function AgentsPage() {
   }, [])
 
   if (loading) return <div className="text-blue-800 font-semibold">Loading agents...</div>
+  if (error) return <div className="bg-red-50 border border-red-200 text-red-600 rounded-xl p-4">{error}</div>
 
   return (
     <div>
@@ -34,10 +36,10 @@ export default function AgentsPage() {
           <div key={agent.id} className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-12 h-12 bg-blue-800 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">{agent.fullName.charAt(0)}</span>
+                <span className="text-white font-bold text-lg">{(agent.fullName || '?').charAt(0)}</span>
               </div>
               <div>
-                <p className="font-bold text-gray-800">{agent.fullName}</p>
+                <p className="font-bold text-gray-800">{agent.fullName || 'Unnamed agent'}</p>
                 <p className="text-gray-500 text-sm">{agent.phone}</p>
               </div>
             </div>

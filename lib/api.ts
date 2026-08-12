@@ -30,6 +30,8 @@ api.interceptors.response.use(
 export const adminAPI = {
   login: (phone: string, password: string) =>
     api.post('/users/login', { phone, password }),
+  verifyOtp: (userId: string, code: string) =>
+    api.post('/users/admin/verify-otp', { userId, code }),
   getStats: () => api.get('/admin/stats'),
   getUsers: () => api.get('/admin/users'),
   verifyUser: (userId: string) => api.post(`/kyc/verify/${userId}`),

@@ -9,6 +9,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const [otpStep, setOtpStep] = useState(false)
+  const [otpCode, setOtpCode] = useState('')
+  const [pendingUserId, setPendingUserId] = useState('')
 
   const handleLogin = async () => {
     if (!phone || !password) { setError('Phone and password are required'); return }
@@ -16,6 +19,14 @@ export default function LoginPage() {
       setLoading(true)
       setError('')
       const response = await adminAPI.login(phone, password)
+
+      // Admins receive a code by SMS before a token is issued.
+      if (response.data.requiresOtp) {
+        setPendingUserId(response.data.userId)
+        setOtpStep(true)
+        return
+      }
+
       const { user, token } = response.data.data
       if (user.role !== 'ADMIN') {
         setError('Access denied — Admin only')
@@ -26,6 +37,23 @@ export default function LoginPage() {
       router.push('/dashboard')
     } catch (error: any) {
       setError(error.response?.data?.message || 'Login failed')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleVerifyOtp = async () => {
+    if (!otpCode) { setError('Enter the code sent to your phone'); return }
+    try {
+      setLoading(true)
+      setError('')
+      const response = await adminAPI.verifyOtp(pendingUserId, otpCode)
+      const { user, token } = response.data.data
+      localStorage.setItem('owode_admin_token', token)
+      localStorage.setItem('owode_admin_user', JSON.stringify(user))
+      router.push('/dashboard')
+    } catch (error: any) {
+      setError(error.response?.data?.message || 'Verification failed')
     } finally {
       setLoading(false)
     }
@@ -52,6 +80,37 @@ export default function LoginPage() {
             </div>
           )}
 
+          {otpStep ? (
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-semibold text-blue-900 block mb-2">Verification Code</label>
+                <p className="text-gray-500 text-sm mb-3">We sent a 6-digit code to your phone.</p>
+                <input
+                  type="tel"
+                  inputMode="numeric"
+                  maxLength={6}
+                  placeholder="000000"
+                  value={otpCode}
+                  onChange={e => setOtpCode(e.target.value.replace(/\\D/g, ''))}
+                  onKeyDown={e => e.key === 'Enter' && handleVerifyOtp()}
+                  className="w-full bg-gray-50 rounded-xl p-4 text-gray-800 text-center text-2xl tracking-[0.4em] outline-none focus:ring-2 focus:ring-blue-500"
+                />
+              </div>
+              <button
+                onClick={handleVerifyOtp}
+                disabled={loading}
+                className="w-full bg-blue-800 text-white rounded-xl p-4 font-bold text-lg hover:bg-blue-900 transition disabled:opacity-50"
+              >
+                {loading ? 'Verifying...' : 'Verify →'}
+              </button>
+              <button
+                onClick={() => { setOtpStep(false); setOtpCode(''); setError('') }}
+                className="w-full text-gray-500 text-sm py-2 hover:text-gray-700"
+              >
+                Back to login
+              </button>
+            </div>
+          ) : (
           <div className="space-y-4">
             <div>
               <label className="text-sm font-semibold text-blue-900 block mb-2">Phone Number</label>
@@ -83,6 +142,7 @@ export default function LoginPage() {
               {loading ? 'Signing in...' : 'Sign In →'}
             </button>
           </div>
+          )}
         </div>
 
         <p className="text-center text-blue-300 text-sm mt-6">
