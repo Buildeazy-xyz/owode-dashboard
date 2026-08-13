@@ -10,6 +10,8 @@ interface Transaction {
   reference: string
   status: string
   createdAt: string
+  latitude?: number | null
+  longitude?: number | null
   wallet: {
     user: {
       fullName: string
@@ -182,6 +184,7 @@ export default function TransactionsPage() {
               <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Amount</th>
               <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Description</th>
               <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Reference</th>
+              <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Location</th>
               <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Status</th>
               <th className="text-left py-4 px-6 text-xs font-semibold text-gray-500 uppercase">Date</th>
             </tr>
@@ -219,6 +222,13 @@ export default function TransactionsPage() {
                 </td>
                 <td className="py-4 px-6">
                   <p className="text-xs text-gray-400 font-mono truncate max-w-32">{tx.reference}</p>
+                </td>
+                <td className="py-4 px-6">
+                  {tx.latitude && tx.longitude ? (
+                    <a href={`https://www.google.com/maps?q=${tx.latitude},${tx.longitude}`} target="_blank" rel="noreferrer" className="text-blue-700 text-xs font-semibold hover:underline">View on map</a>
+                  ) : (
+                    <span className="text-gray-300 text-xs">Not recorded</span>
+                  )}
                 </td>
                 <td className="py-4 px-6">
                   <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
